@@ -1,0 +1,500 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #06111f;
+  color: #e2e8f0;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #071525;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e3a5f;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #25618d;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD
+========================================================= */
+
+.dashboard-background {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(14, 165, 233, 0.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 5%,
+      rgba(37, 99, 235, 0.12),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #06111f 0%,
+      #081827 45%,
+      #06111f 100%
+    );
+}
+
+
+/* =========================================================
+   GLASS / PANEL SYSTEM
+========================================================= */
+
+.glass-card {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 31, 50, 0.92),
+      rgba(7, 20, 34, 0.88)
+    );
+
+  border: 1px solid rgba(100, 180, 230, 0.13);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+
+/* =========================================================
+   WATER SURFACE
+========================================================= */
+
+.water-surface {
+  position: relative;
+  overflow: hidden;
+}
+
+.water-surface::before,
+.water-surface::after {
+  content: "";
+
+  position: absolute;
+
+  width: 200%;
+  height: 100%;
+
+  left: -50%;
+  top: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(125, 211, 252, 0.14) 0px,
+      rgba(125, 211, 252, 0.14) 2px,
+      transparent 2px,
+      transparent 18px
+    );
+
+  animation:
+    waterWave 4s linear infinite;
+
+  pointer-events: none;
+}
+
+.water-surface::after {
+  animation-duration: 7s;
+  opacity: 0.4;
+}
+
+@keyframes waterWave {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(25%);
+  }
+}
+
+
+/* =========================================================
+   RAIN
+========================================================= */
+
+.rain-container {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.rain-drop {
+  position: absolute;
+
+  width: 1.5px;
+  height: 20px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(125, 211, 252, 0.9)
+    );
+
+  animation:
+    rainDropFall linear infinite;
+}
+
+@keyframes rainDropFall {
+  0% {
+    transform:
+      translate3d(0, -30px, 0)
+      rotate(12deg);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate3d(-40px, 500px, 0)
+      rotate(12deg);
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   FLOOD / WARNING GLOWS
+========================================================= */
+
+.flood-glow {
+  animation:
+    floodGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes floodGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(239, 68, 68, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 35px rgba(239, 68, 68, 0.28);
+  }
+}
+
+.warning-glow {
+  animation:
+    warningGlow 2s ease-in-out infinite;
+}
+
+@keyframes warningGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(245, 158, 11, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 28px rgba(245, 158, 11, 0.2);
+  }
+}
+
+
+/* =========================================================
+   LIVE INDICATOR
+========================================================= */
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 0 0 rgba(34, 197, 94, 0.55);
+
+  animation:
+    livePulse 1.5s infinite;
+}
+
+@keyframes livePulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(34, 197, 94, 0.55);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 9px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+
+/* =========================================================
+   STATUS COLORS
+========================================================= */
+
+.status-normal {
+  color: #4ade80;
+
+  background:
+    rgba(34, 197, 94, 0.11);
+
+  border: 1px solid
+    rgba(34, 197, 94, 0.2);
+}
+
+.status-rising {
+  color: #38bdf8;
+
+  background:
+    rgba(14, 165, 233, 0.11);
+
+  border: 1px solid
+    rgba(14, 165, 233, 0.2);
+}
+
+.status-warning {
+  color: #fbbf24;
+
+  background:
+    rgba(245, 158, 11, 0.11);
+
+  border: 1px solid
+    rgba(245, 158, 11, 0.22);
+}
+
+.status-critical {
+  color: #f87171;
+
+  background:
+    rgba(239, 68, 68, 0.12);
+
+  border: 1px solid
+    rgba(239, 68, 68, 0.25);
+}
+
+
+/* =========================================================
+   WATER LEVEL BAR
+========================================================= */
+
+.water-level-bar {
+  position: relative;
+
+  height: 7px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background:
+    rgba(148, 163, 184, 0.12);
+
+  border: 1px solid
+    rgba(148, 163, 184, 0.08);
+}
+
+.water-level-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #22d3ee,
+      #0ea5e9,
+      #2563eb
+    );
+
+  box-shadow:
+    0 0 14px rgba(14, 165, 233, 0.35);
+
+  transition:
+    width 0.8s ease;
+}
+
+
+/* =========================================================
+   CONTROL BUTTONS
+========================================================= */
+
+.control-button {
+  position: relative;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.control-button:active {
+  transform: translateY(0);
+}
+
+.control-button::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.07) 50%,
+      transparent 70%
+    );
+
+  transform: translateX(-120%);
+
+  transition:
+    transform 0.6s ease;
+
+  pointer-events: none;
+}
+
+.control-button:hover::after {
+  transform: translateX(120%);
+}
+
+
+/* =========================================================
+   SELECT INPUTS
+========================================================= */
+
+select {
+  color-scheme: dark;
+
+  background-color: #0b1b2d;
+  color: #e2e8f0;
+
+  border-color:
+    rgba(100, 180, 230, 0.16);
+}
+
+select option {
+  background: #0b1b2d;
+  color: #e2e8f0;
+}
+
+
+/* =========================================================
+   CHART TOOLTIP
+========================================================= */
+
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-background {
+    padding-bottom: 24px;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

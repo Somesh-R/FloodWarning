@@ -1,0 +1,17 @@
+# Storage
+
+This folder is reserved for the Big Data storage layer.
+
+The final architecture will use:
+
+Python Sensor Simulator
+        ↓
+Apache Flume
+        ↓
+HDFS
+
+Flume will handle data ingestion and transport.
+HDFS will provide persistent storage for sensor history.
+
+Real-time flood detection is handled separately by the
+Python streaming engine.
